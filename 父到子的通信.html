@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <mycomp :msgfromfather="msg"></mycomp>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('mycomp',{
+        template :'<div>{{msgfromfather}}</div>',
+        data(){
+            return{
+                msg :'子组件里面的内容'
+            }
+        },
+        props:['msgfromfather']
+    })
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            msg :'父组件里面的内容'
+        }
+    })
+</script>
+</body>
+</html>

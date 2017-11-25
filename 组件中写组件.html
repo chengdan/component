@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+<account></account>
+</div>
+
+
+
+<script type="text/html" id="login-tpl">
+    <div class="login">
+        <table>
+            <tr>
+                <th>用户名</th>
+                <th><input type="text"></th>
+            </tr>
+            <tr>
+                <th>密码</th>
+                <th><input type="text"></th>
+            </tr>
+            <th>
+                <button>登录</button>
+            </th>
+        </table>
+    </div>
+</script>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('account',{
+        template:'<div>Account组件<component is="login"></component></div>'
+    });
+    Vue.component('login',{
+        template : '#login-tpl'
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>
+</body>
+</html>

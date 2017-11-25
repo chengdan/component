@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .comp-enter{
+            margin-left: -200px;
+        }
+
+        .comp-enter-to,.comp-leave{
+            margin-left: 0;
+        }
+
+        .comp-leave-to{
+            margin-left: 200px;
+        }
+
+        .comp-enter-active,.comp-leave-active{
+            transition: all 1s linear;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <a href="#/login">登录</a>
+    <a href="#/register">注册</a>
+
+    <transition name="comp" mode="out-in">
+        <component :is="currComp"></component>
+    </transition>
+</div>
+
+<script type="text/html" id="login-tpl">
+    <div class="login">
+        <table>
+            <tr>
+                <th>用户名</th>
+                <th><input type="text"></th>
+            </tr>
+            <tr>
+                <th>密码</th>
+                <th><input type="text"></th>
+            </tr>
+            <th>
+                <button>登录</button>
+            </th>
+        </table>
+    </div>
+</script>
+
+
+<script type="text/html" id="register-tpl">
+    <div class="register">
+        <table>
+            <tr>
+                <th>用户名</th>
+                <th><input type="text"></th>
+            </tr>
+            <tr>
+                <th>密码</th>
+                <th><input type="text"></th>
+            </tr>
+            <tr>
+                <th>确认密码</th>
+                <th><input type="text"></th>
+            </tr>
+            <th>
+                <button>注册</button>
+            </th>
+        </table>
+    </div>
+</script>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('login', {
+        template: '#login-tpl'
+    });
+    Vue.component('register', {
+        template: '#register-tpl'
+    });
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            currComp: 'login'
+        },
+        created(){
+          this.getHash();
+          window.onhashchange = _=>{
+              this.getHash();
+          }
+        },
+        methods: {
+            getHash(){
+                switch (location.hash) {
+                    case '#/register':
+                        this.currComp = 'register';
+                        break;
+                    default :
+                        this.currComp = 'login'
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

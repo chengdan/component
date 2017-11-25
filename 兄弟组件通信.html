@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <bigbrother></bigbrother>
+    <youngbrother></youngbrother>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+    var messageHub = new Vue();
+
+    Vue.component('bigbrother',{
+        template :'<h1>哥哥组件</h1>',
+        created(){
+            messageHub.$on('listenmsg',this.getMsg);
+        },
+        methods:{
+            getMsg(msg){
+                console.log(msg);
+            }
+        }
+    });
+
+    Vue.component('youngbrother',{
+        template : '<div><h1>弟弟组件</h1><button @click="btn">发信息给哥哥组件</button></div>',
+        methods :{
+            btn(){
+                messageHub.$emit('listenmsg','爸爸喊你回家吃饭了')
+            }
+        }
+    });
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>
+</body>
+</html>

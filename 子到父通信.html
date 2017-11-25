@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <span>{{msg}}</span>
+    <mycomp @sendmsg="getMsgMySon"></mycomp>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('mycomp',{
+        template : '<div>{{msg}}<button @click="sendMsgToDad">点我发消息给爸爸</button></div>',
+        data(){
+            return{
+                msg :'我是子组件内容'
+            }
+        },
+        methods :{
+            sendMsgToDad(){
+                this.$emit('sendmsg','爸爸，我是儿子')
+            }
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            msg :'我是父组件'
+        },
+        methods : {
+          getMsgMySon(msg){
+              console.log(msg);
+          }
+        }
+    })
+</script>
+</body>
+</html>
